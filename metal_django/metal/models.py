@@ -25,8 +25,8 @@ class ArtistRig(models.Model):
     def __str__(self):
         return self.name        
 
-class RigDetails(models.Model):
-    artistRig = models.ForeignKey(ArtistRig, on_delete=models.CASCADE, related_name= 'rig_details')
+class RigDetail(models.Model):
+    artistRig = models.ForeignKey(ArtistRig, on_delete=models.CASCADE, related_name= 'rig_detail')
     description = models.TextField(max_length=400)
     tuning = models.TextField(max_length=200)
 
