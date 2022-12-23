@@ -48,4 +48,4 @@ class RigDetailSerializer(serializers.HyperlinkedModelSerializer):
     )    
     class Meta:
         model = RigDetail
-        fields = ('id','description''tuning', 'rig_detail_url', 'name')        
+        fields = ('id','description', 'tuning', 'rig_detail_url', 'name', 'artists')        
