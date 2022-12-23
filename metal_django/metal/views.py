@@ -13,12 +13,20 @@ class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
 
-class ArtistRig(generics.RetrieveUpdateDestroyAPIView):
+class ArtistRigList(generics.ListCreateAPIView):
+    queryset = ArtistRig.objects.all()
+    serializer_class = ArtistRigSerializer    
+
+class ArtistRigDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ArtistRig.objects.all()
     serializer_class = ArtistRigSerializer
 
+class RigDetailList(generics.ListCreateAPIView):
+    queryset = RigDetail.objects.all()
+    serializer_class = RigDetailSerializer    
 
-class RigDetail(generics.RetrieveUpdateDestroyAPIView):
+
+class RigDetailDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = RigDetail.objects.all()
     serializer_class = RigDetailSerializer
     
