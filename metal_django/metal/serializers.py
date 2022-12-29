@@ -43,9 +43,9 @@ class RigDetailSerializer(serializers.HyperlinkedModelSerializer):
         many=True,
         read_only=True    
     )
-    rig_detail_url = serializers.ModelSerializer.serializer_url_field(
-        view_name = 'rig_detail'
-    )    
+    # rig_detail_url = serializers.ModelSerializer.serializer_url_field(
+    #     view_name = 'rig_detail'
+    # )    
     class Meta:
         model = RigDetail
-        fields = ('id','description', 'tuning', 'rig_detail_url', 'name', 'artists')        
+        fields = ('id','description', 'tuning', 'name', 'artists', 'photo_url')        
