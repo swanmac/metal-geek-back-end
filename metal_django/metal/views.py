@@ -29,4 +29,4 @@ class RigDetailList(generics.ListCreateAPIView):
 class RigDetailDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = RigDetail.objects.all()
     serializer_class = RigDetailSerializer
-    
+
