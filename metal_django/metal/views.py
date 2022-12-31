@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import ArtistSerializer, ArtistRigSerializer, RigDetailSerializer
-from .models import Artist, ArtistRig, RigDetail
+from .serializers import ArtistSerializer, ArtistRigSerializer, RigDetailSerializer, GearSerializer
+from .models import Artist, ArtistRig, RigDetail, Gear
 # from rest_framework.response import Response
 
 
@@ -30,6 +30,14 @@ class RigDetailList(generics.ListCreateAPIView):
 class RigDetailDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = RigDetail.objects.all()
     serializer_class = RigDetailSerializer
+
+class GearList(generics.ListCreateAPIView):
+    queryset = Gear.objects.all()
+    serializer_class = GearSerializer
+
+class GearDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Gear.objects.all()
+    serializer_class = GearSerializer    
 
 
 # class ArtistPost(generics.RetrieveUpdateDestroyAPIView):
