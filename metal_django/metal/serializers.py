@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Artist, ArtistRig, RigDetail
+from .models import Artist, ArtistRig, RigDetail, Gear
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     artist_rig = serializers.HyperlinkedRelatedField(
@@ -49,3 +49,10 @@ class RigDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = RigDetail
         fields = ('id','description', 'tuning', 'name', 'artists', 'photo_url')        
+
+
+
+class GearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gear
+        fields = ("name", "photo_url", "type", "color")
