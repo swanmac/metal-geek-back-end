@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .serializers import ArtistSerializer, ArtistRigSerializer, RigDetailSerializer, GearSerializer
 from .models import Artist, ArtistRig, RigDetail, Gear
-# from rest_framework.response import Response
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -38,6 +38,41 @@ class GearList(generics.ListCreateAPIView):
 class GearDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Gear.objects.all()
     serializer_class = GearSerializer    
+
+class GearPost(generics.RetrieveUpdateDestroyAPIView):
+    def get(self, request):
+        gearObj=Gear.objects.all()
+        gearSerializeObj=GearSerializer(gearObj,many=True)
+        return Response(gearSerializeObj.data)
+    
+    def post(self,request):
+        serializeobj=GearSerializer(data=request.data)
+        if serializeobj.is_valid():
+            serializeobj.save()
+            return Response(200)
+        return Response(serializeobj.errors)
+
+class GearUpdate(generics.RetrieveUpdateDestroyAPIView):
+    def post(self,request,pk):
+        try:
+            gearObj=Gear.objects.get(pk=pk)
+        except:
+            return Response("Not found in database")
+
+        serializeobj=GearSerializer(gearObj,data=request.data)
+        if serializeobj.is_valid():
+            serializeobj.save()
+            return Response(200)
+        return Response(serializeobj.errors)
+
+class GearDelete(generics.RetrieveUpdateDestroyAPIView):
+    def post(self,request,pk):
+        try:
+            gearObj=Gear.objects.get(pk=pk)
+        except:
+            return Response("Not found in database")
+        gearObj.delete()
+        return Response(200)    
 
 
 # class ArtistPost(generics.RetrieveUpdateDestroyAPIView):
