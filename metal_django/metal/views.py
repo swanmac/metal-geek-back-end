@@ -40,6 +40,8 @@ class GearDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GearSerializer    
 
 class GearPost(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Gear.objects.all()
+    serializer_class = GearSerializer
     def get(self, request):
         gearObj=Gear.objects.all()
         gearSerializeObj=GearSerializer(gearObj,many=True)
@@ -53,6 +55,8 @@ class GearPost(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializeobj.errors)
 
 class GearUpdate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Gear.objects.all()
+    serializer_class = GearSerializer
     def post(self,request,pk):
         try:
             gearObj=Gear.objects.get(pk=pk)
@@ -66,6 +70,8 @@ class GearUpdate(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializeobj.errors)
 
 class GearDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Gear.objects.all()
+    serializer_class = GearSerializer
     def post(self,request,pk):
         try:
             gearObj=Gear.objects.get(pk=pk)
