@@ -55,4 +55,4 @@ class RigDetailSerializer(serializers.HyperlinkedModelSerializer):
 class GearSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gear
-        fields = ("name", "photo_url", "type", "color")
+        fields = ("id", "name", "photo_url", "type", "color")
