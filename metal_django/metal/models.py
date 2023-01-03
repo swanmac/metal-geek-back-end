@@ -37,8 +37,8 @@ class RigDetail(models.Model):
         return self.name
         
 class Gear(models.Model):
-    name = models.CharField(max_length=500, default="no name", null=True)
-    photo_url = models.CharField(max_length=250, default="no photo", null=True)
+    name = models.CharField(max_length=500, null=True)
+    photo_url = models.CharField(max_length=250, null=True)
     type = models.TextField(max_length=200)
     color = models.TextField(max_length=200)
 
