@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o8=1aed5ds4%qqu0^p*am4m1hb#165u@)9l$z9#ntd4ndykdwz'
+SECRET_KEY = os.environ['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production! 
+DEBUG = True if os.environ['MODE'] == 'dev' else False
+# DEBUG = True 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
-    'metal',
-    'rest_framework',
     'corsheaders',
+    'rest_framework',
+    'django_extensions',
+    'metal'
 ]
 
 REST_FRAMEWORK = {
@@ -55,8 +57,10 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,13 +72,15 @@ MIDDLEWARE = [
 
 CORS_ALLOW_HEADERS = "*"
 
-CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
-    "http://localhost:8000",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://example.com",
+#     "https://sub.example.com",
+#     "http://localhost:8080",
+#     "http://127.0.0.1:9000",
+#     "http://localhost:8000",
+# ]
+#     "https://guarded-tundra-85048.herokuapp.com/",
+# ]
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_METHODS = [
@@ -88,7 +94,8 @@ CORS_ALLOW_METHODS = [
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://guarded-tundra-85048.herokuapp.com/",
 ]
 
 
@@ -116,15 +123,22 @@ WSGI_APPLICATION = 'metal_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'metal',
+#         'USER': 'metaluser',
+#         'PASSWORD': 'metal',
+#         'HOST': 'localhost'
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'metal',
-        'USER': 'metaluser',
-        'PASSWORD': 'metal',
-        'HOST': 'localhost'
-    }
+  'default': dj_database_url.config(conn_max_age=600)
 }
+
+# DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/NAME
+# DJ_DATABASE_URL=postgres://metaluser:metal@localhost:5432/metal
 
 
 # Password validation
@@ -161,6 +175,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_ROOT=os.path.join(BASE_DIR, "static/")
+
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -168,3 +184,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# import dj_database_url
+# prod_db=dj_database_url.config(conn_max_age=500)
+# DATABASES['default']
