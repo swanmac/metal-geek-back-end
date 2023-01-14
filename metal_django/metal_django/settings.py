@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production! 
-DEBUG = True if os.environ['MODE'] == 'dev' else False
-# DEBUG = True 
+# DEBUG = True if os.environ['MODE'] == 'dev' else False
+DEBUG = True 
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'django_extensions',
     'metal',
 ]
 
@@ -123,22 +122,22 @@ WSGI_APPLICATION = 'metal_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'metal',
-#         'USER': 'metaluser',
-#         'PASSWORD': 'metal',
-#         'HOST': 'localhost'
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'metal',
+        'USER': 'metaluser',
+        'PASSWORD': 'metal',
+        'HOST': 'localhost'
+    }
+}
 
 DATABASES = {
   'default': dj_database_url.config(conn_max_age=600)
 }
 
 # DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/NAME
-# DJ_DATABASE_URL=postgres://metaluser:metal@localhost:5432/metal
+DJ_DATABASE_URL=postgres://metaluser:metal@localhost:5432/metal
 
 
 # Password validation
@@ -174,9 +173,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
 
 
 STATIC_ROOT=os.path.join(BASE_DIR, "static/")
